@@ -12,10 +12,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private int balance = 100;
     private boolean isRacing = false;
     private MediaPlayer bgMusic, raceSound;
+    
+    // Lưu trữ các đối tượng GIF để điều khiển trực tiếp
+    private GifDrawable[] horseGifs = new GifDrawable[4];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,24 +80,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadAllHorses() {
-        setHorseImage(sbHorse1, "horse_tan");
-        setHorseImage(sbHorse2, "horse_black");
-        setHorseImage(sbHorse3, "horse_brown");
-        setHorseImage(sbHorse4, "horse_grey");
+        setHorseImage(sbHorse1, "horse_tan", 0);
+        setHorseImage(sbHorse2, "horse_black", 1);
+        setHorseImage(sbHorse3, "horse_brown", 2);
+        setHorseImage(sbHorse4, "house_white", 3);
     }
 
-    private void setHorseImage(SeekBar seekBar, String imageName) {
+    private void setHorseImage(SeekBar seekBar, String imageName, int index) {
         int resId = getResources().getIdentifier(imageName, "drawable", getPackageName());
         if (resId != 0) {
+            int sizeInPx = (int) (100 * getResources().getDisplayMetrics().density);
+            
             Glide.with(this).asDrawable().load(resId).into(new CustomTarget<Drawable>() {
                 @Override
-                public void onResourceReady(Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                    resource.setBounds(0, 0, 150, 150);
+                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                    resource.setBounds(0, 0, sizeInPx, sizeInPx);
                     seekBar.setThumb(resource);
+                    
+                    if (resource instanceof GifDrawable) {
+                        GifDrawable gif = (GifDrawable) resource;
+                        horseGifs[index] = gif; // Lưu vào mảng
+                        
+                        gif.setCallback(new Drawable.Callback() {
+                            @Override
+                            public void invalidateDrawable(@NonNull Drawable who) { seekBar.invalidate(); }
+                            @Override
+                            public void scheduleDrawable(@NonNull Drawable who, @NonNull Runnable what, long when) { seekBar.postDelayed(what, when); }
+                            @Override
+                            public void unscheduleDrawable(@NonNull Drawable who, @NonNull Runnable what) { seekBar.removeCallbacks(what); }
+                        });
+                        gif.stop(); // Dừng ban đầu
+                    }
                 }
                 @Override
                 public void onLoadCleared(@Nullable Drawable placeholder) {}
             });
+        }
+    }
+
+    private void toggleHorseGifs(boolean start) {
+        for (GifDrawable gif : horseGifs) {
+            if (gif != null) {
+                if (start) gif.start();
+                else gif.stop();
+            }
         }
     }
 
@@ -129,8 +160,13 @@ public class MainActivity extends AppCompatActivity {
         int b4 = getBetValue(etBet4, cbHorse4);
         int total = b1 + b2 + b3 + b4;
 
-        if (total == 0 || total > balance) {
-            Toast.makeText(this, "Cược không hợp lệ!", Toast.LENGTH_SHORT).show();
+        if (total == 0) {
+            Toast.makeText(this, "Vui lòng đặt cược!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (total > balance) {
+            Toast.makeText(this, "Số dư không đủ!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -138,8 +174,10 @@ public class MainActivity extends AppCompatActivity {
         updateBalanceUI();
         isRacing = true;
         disableBets(true);
+        
+        // Bắt đầu chạy GIF ngay lập tức
+        toggleHorseGifs(true);
 
-        // Phát âm thanh đua
         try {
             int raceSoundRes = getResources().getIdentifier("race_sound", "raw", getPackageName());
             if (raceSoundRes != 0) {
@@ -149,13 +187,13 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {}
 
         Random random = new Random();
-        new CountDownTimer(60000, 150) {
+        new CountDownTimer(60000, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
-                sbHorse1.setProgress(sbHorse1.getProgress() + random.nextInt(6));
-                sbHorse2.setProgress(sbHorse2.getProgress() + random.nextInt(6));
-                sbHorse3.setProgress(sbHorse3.getProgress() + random.nextInt(6));
-                sbHorse4.setProgress(sbHorse4.getProgress() + random.nextInt(6));
+                sbHorse1.setProgress(sbHorse1.getProgress() + random.nextInt(4));
+                sbHorse2.setProgress(sbHorse2.getProgress() + random.nextInt(4));
+                sbHorse3.setProgress(sbHorse3.getProgress() + random.nextInt(4));
+                sbHorse4.setProgress(sbHorse4.getProgress() + random.nextInt(4));
 
                 if (sbHorse1.getProgress() >= 100 || sbHorse2.getProgress() >= 100 || 
                     sbHorse3.getProgress() >= 100 || sbHorse4.getProgress() >= 100) {
@@ -166,6 +204,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 isRacing = false;
+                toggleHorseGifs(false); // Dừng GIF
+                
                 if (raceSound != null) { raceSound.stop(); raceSound.release(); raceSound = null; }
                 
                 int win = 0;
@@ -184,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         balance += prize;
         updateBalanceUI();
         
-        String[] colors = {"Vàng", "Đen", "Nâu", "Xám"};
+        String[] colors = {"Vàng", "Đen", "Nâu", "Trắng"};
         new AlertDialog.Builder(this).setTitle("KẾT QUẢ")
                 .setMessage("Ngựa " + colors[win-1] + " thắng!\nBạn nhận được: " + prize + "$")
                 .setPositiveButton("Chơi tiếp", (dialog, which) -> disableBets(false))
@@ -209,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
         if (isRacing) return;
         sbHorse1.setProgress(0); sbHorse2.setProgress(0);
         sbHorse3.setProgress(0); sbHorse4.setProgress(0);
+        toggleHorseGifs(false);
         disableBets(false);
     }
 

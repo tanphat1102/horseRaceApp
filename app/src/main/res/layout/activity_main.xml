@@ -5,31 +5,33 @@
     android:background="@drawable/background_landscape">
 
     <!-- Thanh thông tin phía trên -->
+
+    <!-- Khu vực đường đua -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#AA000000"
-        android:padding="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:padding="10dp">
 
         <Button
             android:id="@+id/btnDeposit"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:backgroundTint="#4CAF50"
             android:text="Nạp tiền"
-            android:textSize="12sp"
-            android:backgroundTint="#4CAF50"/>
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="TRƯỜNG ĐUA"
             android:textColor="@android:color/white"
-            android:gravity="center"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -43,7 +45,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Khu vực đường đua -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,31 +55,148 @@
         android:padding="10dp">
 
         <!-- Ngựa 1: Vàng -->
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="5dp">
-            <CheckBox android:id="@+id/cbHorse1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:buttonTint="@android:color/white"/>
-            <SeekBar android:id="@+id/sbHorse1" android:layout_width="match_parent" android:layout_height="70dp" android:layout_toEndOf="@id/cbHorse1" android:layout_toStartOf="@+id/etBet1" android:max="100" android:progressDrawable="@android:color/transparent" android:splitTrack="false" android:enabled="false"/>
-            <EditText android:id="@+id/etBet1" android:layout_width="65dp" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:hint="Cược" android:inputType="number" android:textColor="@android:color/white" android:backgroundTint="@android:color/white" android:layout_centerVertical="true"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp">
+
+            <CheckBox
+                android:id="@+id/cbHorse1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:buttonTint="@android:color/white" />
+
+            <SeekBar
+                android:id="@+id/sbHorse1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_toStartOf="@+id/etBet1"
+                android:layout_toEndOf="@id/cbHorse1"
+                android:enabled="false"
+                android:max="100"
+                android:progressDrawable="@android:color/transparent"
+                android:splitTrack="false" />
+
+            <EditText
+                android:id="@+id/etBet1"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:backgroundTint="@android:color/white"
+                android:hint="Cược"
+                android:inputType="number"
+                android:textColor="@android:color/white" />
         </RelativeLayout>
 
         <!-- Ngựa 2: Đen -->
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="5dp">
-            <CheckBox android:id="@+id/cbHorse2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:buttonTint="@android:color/white"/>
-            <SeekBar android:id="@+id/sbHorse2" android:layout_width="match_parent" android:layout_height="70dp" android:layout_toEndOf="@id/cbHorse2" android:layout_toStartOf="@+id/etBet2" android:max="100" android:progressDrawable="@android:color/transparent" android:splitTrack="false" android:enabled="false"/>
-            <EditText android:id="@+id/etBet2" android:layout_width="65dp" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:hint="Cược" android:inputType="number" android:textColor="@android:color/white" android:backgroundTint="@android:color/white" android:layout_centerVertical="true"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp">
+
+            <CheckBox
+                android:id="@+id/cbHorse2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:buttonTint="@android:color/white" />
+
+            <SeekBar
+                android:id="@+id/sbHorse2"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_toStartOf="@+id/etBet2"
+                android:layout_toEndOf="@id/cbHorse2"
+                android:enabled="false"
+                android:max="100"
+                android:progressDrawable="@android:color/transparent"
+                android:splitTrack="false" />
+
+            <EditText
+                android:id="@+id/etBet2"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:backgroundTint="@android:color/white"
+                android:hint="Cược"
+                android:inputType="number"
+                android:textColor="@android:color/white" />
         </RelativeLayout>
+
 
         <!-- Ngựa 3: Nâu -->
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="5dp">
-            <CheckBox android:id="@+id/cbHorse3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:buttonTint="@android:color/white"/>
-            <SeekBar android:id="@+id/sbHorse3" android:layout_width="match_parent" android:layout_height="70dp" android:layout_toEndOf="@id/cbHorse3" android:layout_toStartOf="@+id/etBet3" android:max="100" android:progressDrawable="@android:color/transparent" android:splitTrack="false" android:enabled="false"/>
-            <EditText android:id="@+id/etBet3" android:layout_width="65dp" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:hint="Cược" android:inputType="number" android:textColor="@android:color/white" android:backgroundTint="@android:color/white" android:layout_centerVertical="true"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp">
+
+            <CheckBox
+                android:id="@+id/cbHorse3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:buttonTint="@android:color/white" />
+
+            <SeekBar
+                android:id="@+id/sbHorse3"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_toStartOf="@+id/etBet3"
+                android:layout_toEndOf="@id/cbHorse3"
+                android:enabled="false"
+                android:max="100"
+                android:progressDrawable="@android:color/transparent"
+                android:splitTrack="false" />
+
+            <EditText
+                android:id="@+id/etBet3"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:backgroundTint="@android:color/white"
+                android:hint="Cược"
+                android:inputType="number"
+                android:textColor="@android:color/white" />
         </RelativeLayout>
 
-        <!-- Ngựa 4: Xám -->
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-            <CheckBox android:id="@+id/cbHorse4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:buttonTint="@android:color/white"/>
-            <SeekBar android:id="@+id/sbHorse4" android:layout_width="match_parent" android:layout_height="70dp" android:layout_toEndOf="@id/cbHorse4" android:layout_toStartOf="@+id/etBet4" android:max="100" android:progressDrawable="@android:color/transparent" android:splitTrack="false" android:enabled="false"/>
-            <EditText android:id="@+id/etBet4" android:layout_width="65dp" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:hint="Cược" android:inputType="number" android:textColor="@android:color/white" android:backgroundTint="@android:color/white" android:layout_centerVertical="true"/>
+        <!-- Ngựa 4: Trắng -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp">
+
+            <CheckBox
+                android:id="@+id/cbHorse4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:buttonTint="@android:color/white" />
+
+            <SeekBar
+                android:id="@+id/sbHorse4"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_toStartOf="@+id/etBet4"
+                android:layout_toEndOf="@id/cbHorse4"
+                android:enabled="false"
+                android:max="100"
+                android:progressDrawable="@android:color/transparent"
+                android:splitTrack="false" />
+
+            <EditText
+                android:id="@+id/etBet4"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:backgroundTint="@android:color/white"
+                android:hint="Cược"
+                android:inputType="number"
+                android:textColor="@android:color/white" />
         </RelativeLayout>
 
     </LinearLayout>
