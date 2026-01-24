@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvBetSummary;
 
     private SeekBar sbHorse2, sbHorse3, sbHorse4;
-    private Button btnBet, btnStart, btnReset, btnDeposit;
+    private Button btnBet, btnStart, btnDeposit;
 
     private int balance = 100;
     private boolean isRacing = false;
@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
             startRace();
         });
 
-        btnReset.setOnClickListener(v -> resetRace());
         btnDeposit.setOnClickListener(v -> showDepositDialog());
     }
 
@@ -78,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
         btnBet = findViewById(R.id.btnBet);
         btnStart = findViewById(R.id.btnStart);
-        btnReset = findViewById(R.id.btnReset);
         btnDeposit = findViewById(R.id.btnDeposit);
 
         sbHorse2 = findViewById(R.id.sbHorse2);
@@ -294,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
         String name = win == 2 ? "Đen" : (win == 3 ? "Nâu" : "Trắng");
         new AlertDialog.Builder(this).setTitle("KẾT QUẢ")
                 .setMessage("Ngựa " + name + " thắng!\nBạn nhận được: " + prize + "$")
-                .setPositiveButton("Chơi tiếp", (dialog, which) -> disableActions(false))
+                .setPositiveButton("Chơi tiếp", (dialog, which) -> resetRace())
                 .setCancelable(false)
                 .show();
     }
