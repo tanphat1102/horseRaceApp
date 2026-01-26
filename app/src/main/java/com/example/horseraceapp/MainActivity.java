@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int balance = 100;
     private boolean isRacing = false;
-    private MediaPlayer bgMusic, raceSound;
+    private MediaPlayer bgMusic, raceSound, winSound;
 
     // Bet state (only 1 horse)
     // horse: 2..4, 0 = not selected
@@ -244,7 +244,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             int raceSoundRes = getResources().getIdentifier("race_sound", "raw", getPackageName());
             if (raceSoundRes != 0) {
+                if (raceSound != null) raceSound.release();
                 raceSound = MediaPlayer.create(this, raceSoundRes);
+                raceSound.setLooping(true);
                 raceSound.start();
             }
         } catch (Exception e) {}
@@ -273,6 +275,17 @@ public class MainActivity extends AppCompatActivity {
                     raceSound.release();
                     raceSound = null;
                 }
+
+
+                try {
+                    int winSoundRes = getResources().getIdentifier("win_sound", "raw", getPackageName());
+                    if (winSoundRes != 0) {
+                        if (winSound != null) winSound.release();
+                        winSound = MediaPlayer.create(MainActivity.this, winSoundRes);
+                        winSound.start();
+                    }
+                } catch (Exception e) { e.printStackTrace(); }
+
 
                 int win;
                 if (sbHorse2.getProgress() >= 100) win = 2;
@@ -310,6 +323,10 @@ public class MainActivity extends AppCompatActivity {
         sbHorse4.setProgress(0);
         toggleHorseGifs(false);
         disableActions(false);
+        // Dừng nhạc thắng khi chơi ván mới
+        if (winSound != null && winSound.isPlaying()) {
+            winSound.stop();
+        }
     }
 
     @Override
