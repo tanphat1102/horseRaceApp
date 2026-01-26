@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int balance = 100;
     private boolean isRacing = false;
-    private MediaPlayer bgMusic, raceSound;
+    private MediaPlayer bgMusic, raceSound, betSound, startSound;
 
     // Bet state (only 1 horse)
     // horse: 2..4, 0 = not selected
@@ -217,6 +217,14 @@ public class MainActivity extends AppCompatActivity {
                     selectedHorse = horse;
                     betAmount = amount;
                     updateBetSummaryUI();
+
+                    try{
+                        if (betSound != null) betSound.release();
+                        betSound = MediaPlayer.create(this, R.raw.cash_register);
+                        betSound.start();
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                 })
                 .setNegativeButton("Hủy", null)
                 .show();
@@ -242,9 +250,13 @@ public class MainActivity extends AppCompatActivity {
         toggleHorseGifs(true);
 
         try {
-            int raceSoundRes = getResources().getIdentifier("race_sound", "raw", getPackageName());
-            if (raceSoundRes != 0) {
-                raceSound = MediaPlayer.create(this, raceSoundRes);
+            if (raceSound != null){
+                raceSound.release();
+            }
+
+            raceSound = MediaPlayer.create(this, R.raw.horse_neigh);
+
+            if(raceSound != null){
                 raceSound.start();
             }
         } catch (Exception e) {}
@@ -322,6 +334,10 @@ public class MainActivity extends AppCompatActivity {
         if (raceSound != null) {
             raceSound.release();
             raceSound = null;
+        }
+        if(betSound != null){
+            betSound.release();
+            betSound = null;
         }
     }
 }
