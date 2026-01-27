@@ -1,74 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_landscape">
+    android:orientation="vertical"
+    android:weightSum="3">
 
-    <!-- Thanh thông tin phía trên -->
-
-    <!-- Khu vực đường đua -->
-    <LinearLayout
-        android:id="@+id/topBar"
+    <!-- Phần trên cùng: Núi -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#AA000000"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/background_mountain">
 
-        <Button
-            android:id="@+id/btnDeposit"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:backgroundTint="#4CAF50"
-            android:text="Nạp tiền"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="TRƯỜNG ĐUA"
-            android:textColor="@android:color/white"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:background="#AA000000"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-        <TextView
-            android:id="@+id/tvBalance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vốn: 100$"
-            android:textColor="#FFEB3B"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="TRƯỜNG ĐUA"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/tvBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vốn: 100$"
+                android:textColor="#FFEB3B"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- Phần giữa: Đường đua -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/topBar"
-        android:layout_above="@id/bottomBar"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:gravity="center"
-        android:padding="10dp">
-
-        <!-- Ngựa 2: Đen -->
-
-        <!-- Ngựa 3: Nâu -->
+        android:gravity="center">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:paddingTop="30dp"
-            android:layout_marginTop="50dp">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/backgroud_road">
 
             <SeekBar
                 android:id="@+id/sbHorse2"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="match_parent"
                 android:enabled="false"
                 android:max="100"
                 android:progressDrawable="@android:color/transparent"
@@ -77,90 +70,108 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_marginTop="30dp">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/backgroud_road">
 
             <SeekBar
                 android:id="@+id/sbHorse3"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="match_parent"
                 android:enabled="false"
                 android:max="100"
                 android:progressDrawable="@android:color/transparent"
                 android:splitTrack="false" />
         </RelativeLayout>
 
-        <!-- Ngựa 4: Trắng -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/backgroud_road">
 
+            <SeekBar
+                android:id="@+id/sbHorse4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:enabled="false"
+                android:max="100"
+                android:progressDrawable="@android:color/transparent"
+                android:splitTrack="false" />
         </RelativeLayout>
-
-        <SeekBar
-            android:id="@+id/sbHorse4"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:enabled="false"
-            android:max="100"
-            android:progressDrawable="@android:color/transparent"
-            android:splitTrack="false" />
 
     </LinearLayout>
 
-    <!-- Thanh điều khiển phía dưới -->
-    <LinearLayout
-        android:id="@+id/bottomBar"
+    <!-- Phần dưới cùng: Cổng -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#AA000000"
-        android:padding="15dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tvBetSummary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="14sp"
-            android:paddingBottom="10dp"
-            android:text="Chưa đặt cược" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/backgroud_gate">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/btnBet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ĐẶT CƯỢC"
-                android:textStyle="bold"
-                android:layout_marginEnd="15dp"
-                android:backgroundTint="#03A9F4" />
+            android:layout_alignParentBottom="true"
+            android:background="#AA000000"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="15dp">
 
             <Button
                 android:id="@+id/btnStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#FF9800"
                 android:text="BẮT ĐẦU ĐUA"
                 android:textStyle="bold"
-                android:layout_marginEnd="15dp"
-                android:backgroundTint="#FF9800"/>
+                android:layout_marginBottom="10dp"/>
 
-            <Button
-                android:id="@+id/btnReset"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tvBetSummary"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="LÀM MỚI"
-                android:backgroundTint="#757575"/>
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:text="Chưa đặt cược"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnDeposit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#4CAF50"
+                    android:text="Nạp tiền"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btnBet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#03A9F4"
+                    android:text="ĐẶT CƯỢC"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnReset"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#757575"
+                    android:text="LÀM MỚI" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>
