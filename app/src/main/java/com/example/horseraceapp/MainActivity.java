@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     private void setHorseImage(SeekBar seekBar, String imageName, int index) {
         int resId = getResources().getIdentifier(imageName, "drawable", getPackageName());
         if (resId != 0) {
-            int sizeInPx = (int) (100 * getResources().getDisplayMetrics().density);
+            int sizeInPx = (int) (500 * getResources().getDisplayMetrics().density);
 
             Glide.with(this).asDrawable().load(resId).into(new CustomTarget<Drawable>() {
                 @Override
@@ -164,25 +165,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showDepositDialog() {
-        EditText etAmount = new EditText(this);
-        etAmount.setHint("Nhập số tiền");
-        etAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
-        new AlertDialog.Builder(this).setTitle("Nạp tiền").setView(etAmount)
-                .setPositiveButton("Nạp", (dialog, which) -> {
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_deposit, null, false);
+        EditText etAmount = view.findViewById(R.id.etDepositAmount);
+
+        AlertDialog dialog = new AlertDialog.Builder(this, R.style.CustomAlertDialogTheme)
+                .setView(view)
+                .setPositiveButton("💵 Nạp tiền", (d, which) -> {
                     String val = etAmount.getText().toString().trim();
                     if (!val.isEmpty()) {
-                        balance += Integer.parseInt(val);
-                        updateBalanceUI();
+                        int amount = Integer.parseInt(val);
+                        if (amount > 0) {
+                            balance += amount;
+                            updateBalanceUI();
+                            Toast.makeText(this, "✅ Nạp thành công " + amount + "$!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "⚠️ Số tiền phải lớn hơn 0!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
-                .setNegativeButton("Hủy", null)
-                .show();
+                .setNegativeButton("❌ Hủy", null)
+                .create();
+        dialog.show();
     }
 
     private void showBetDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_bet, null, false);
         RadioGroup rg = view.findViewById(R.id.rgHorses);
         EditText etAmount = view.findViewById(R.id.etBetAmount);
+        Button btnConfirm = view.findViewById(R.id.btnConfirmBet);
+        Button btnCancel = view.findViewById(R.id.btnCancelBet);
 
         // Pre-fill current bet
         if (selectedHorse == 2) rg.check(R.id.rbHorse2);
@@ -193,41 +204,47 @@ public class MainActivity extends AppCompatActivity {
             etAmount.setText(String.valueOf(betAmount));
         }
 
-        new AlertDialog.Builder(this)
-                .setTitle("Đặt cược")
+        AlertDialog dialog = new AlertDialog.Builder(this, R.style.CustomAlertDialogTheme)
                 .setView(view)
-                .setPositiveButton("Xác nhận", (dialog, which) -> {
-                    int checkedId = rg.getCheckedRadioButtonId();
-                    if (checkedId == -1) {
-                        Toast.makeText(this, "Vui lòng chọn ngựa!", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+                .setCancelable(false)
+                .create();
 
-                    int horse = checkedId == R.id.rbHorse2 ? 2
-                            : checkedId == R.id.rbHorse3 ? 3
-                            : 4;
+        btnConfirm.setOnClickListener(v -> {
+            int checkedId = rg.getCheckedRadioButtonId();
+            if (checkedId == -1) {
+                Toast.makeText(this, "Vui lòng chọn ngựa!", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                    String val = etAmount.getText().toString().trim();
-                    int amount = val.isEmpty() ? 0 : Integer.parseInt(val);
-                    if (amount <= 0) {
-                        Toast.makeText(this, "Vui lòng nhập số tiền cược hợp lệ!", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+            int horse = checkedId == R.id.rbHorse2 ? 2
+                    : checkedId == R.id.rbHorse3 ? 3
+                    : 4;
 
-                    selectedHorse = horse;
-                    betAmount = amount;
-                    updateBetSummaryUI();
+            String val = etAmount.getText().toString().trim();
+            int amount = val.isEmpty() ? 0 : Integer.parseInt(val);
+            if (amount <= 0) {
+                Toast.makeText(this, "Vui lòng nhập số tiền cược hợp lệ!", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                    try{
-                        if (betSound != null) betSound.release();
-                        betSound = MediaPlayer.create(this, R.raw.cash_register);
-                        betSound.start();
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                })
-                .setNegativeButton("Hủy", null)
-                .show();
+            selectedHorse = horse;
+            betAmount = amount;
+            updateBetSummaryUI();
+
+            try{
+                if (betSound != null) betSound.release();
+                betSound = MediaPlayer.create(this, R.raw.cash_register);
+                betSound.start();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            dialog.dismiss();
+        });
+
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
     }
 
     private void startRace() {
@@ -301,12 +318,41 @@ public class MainActivity extends AppCompatActivity {
         balance += prize;
         updateBalanceUI();
 
+        // Inflate custom dialog
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_result, null, false);
+        TextView tvTitle = view.findViewById(R.id.tvResultTitle);
+        ImageView ivHorse = view.findViewById(R.id.ivResultHorse);
+        TextView tvMessage = view.findViewById(R.id.tvResultMessage);
+        Button btnPlayAgain = view.findViewById(R.id.btnPlayAgain);
+
+        // Set data
         String name = win == 2 ? "Đen" : (win == 3 ? "Nâu" : "Trắng");
-        new AlertDialog.Builder(this).setTitle("KẾT QUẢ")
-                .setMessage("Ngựa " + name + " thắng!\nBạn nhận được: " + prize + "$")
-                .setPositiveButton("Chơi tiếp", (dialog, which) -> resetRace())
+        int horseDrawable = win == 2 ? R.drawable.horse_black
+                          : (win == 3 ? R.drawable.horse_brown : R.drawable.house_white);
+
+        String title = prize > 0 ? "🎉 CHIẾN THẮNG!" : "😢 THUA CUỘC";
+        String message = prize > 0
+            ? "🐴 Ngựa " + name + " về nhất!\n\n💰 Bạn thắng cược: +" + prize + "$\n🎊 Chúc mừng bạn!"
+            : "🐴 Ngựa " + name + " về nhất!\n\n😔 Bạn đã thua cược: -" + betAmount + "$\n💪 Cố gắng lần sau nhé!";
+
+        tvTitle.setText(title);
+        tvTitle.setTextColor(prize > 0 ? 0xFFD4AF37 : 0xFFE74C3C);
+        tvMessage.setText(message);
+
+        // Load horse GIF
+        Glide.with(this).load(horseDrawable).into(ivHorse);
+
+        AlertDialog dialog = new AlertDialog.Builder(this, R.style.CustomAlertDialogTheme)
+                .setView(view)
                 .setCancelable(false)
-                .show();
+                .create();
+
+        btnPlayAgain.setOnClickListener(v -> {
+            resetRace();
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 
     private void disableActions(boolean disable) {
@@ -321,6 +367,16 @@ public class MainActivity extends AppCompatActivity {
         sbHorse3.setProgress(0);
         sbHorse4.setProgress(0);
         toggleHorseGifs(false);
+
+        // Clear và reload lại các GIF để đảm bảo hoạt động cho lần chơi tiếp theo
+        for (int i = 0; i < horseGifs.length; i++) {
+            if (horseGifs[i] != null) {
+                horseGifs[i].setCallback(null);
+                horseGifs[i] = null;
+            }
+        }
+        loadAllHorses();
+
         disableActions(false);
     }
 

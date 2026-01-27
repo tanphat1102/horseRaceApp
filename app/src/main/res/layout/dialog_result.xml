@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/bg_dialog_with_image">
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/tvResultTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🎉 CHIẾN THẮNG!"
+        android:textStyle="bold"
+        android:textSize="28sp"
+        android:textColor="#D4AF37"
+        android:gravity="center"
+        android:paddingBottom="20dp"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="3" />
+
+    <!-- Horse Icon -->
+    <ImageView
+        android:id="@+id/ivResultHorse"
+        android:layout_width="214dp"
+        android:layout_height="147dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Winner Horse"
+        android:src="@drawable/horse_black" />
+
+    <!-- Message -->
+    <TextView
+        android:id="@+id/tvResultMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:padding="16dp"
+        android:text="🐴 Ngựa Đen về nhất!\n\n💰 Bạn thắng cược: +200$\n🎊 Chúc mừng bạn!"
+        android:textColor="#654321"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:background="@drawable/bg_text_semitransparent" />
+
+    <!-- Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnPlayAgain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="🏇 Chơi tiếp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/btn_confirm"
+        android:padding="14dp" />
+        android:background="@drawable/btn_confirm"
+        android:backgroundTint="@null"
+        android:padding="14dp" />
+
+</LinearLayout>
+
