@@ -167,24 +167,32 @@ public class MainActivity extends AppCompatActivity {
     private void showDepositDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_deposit, null, false);
         EditText etAmount = view.findViewById(R.id.etDepositAmount);
+        Button btnConfirm = view.findViewById(R.id.btnConfirmDeposit);
+        Button btnCancel = view.findViewById(R.id.btnCancelDeposit);
 
         AlertDialog dialog = new AlertDialog.Builder(this, R.style.CustomAlertDialogTheme)
                 .setView(view)
-                .setPositiveButton("💵 Nạp tiền", (d, which) -> {
-                    String val = etAmount.getText().toString().trim();
-                    if (!val.isEmpty()) {
-                        int amount = Integer.parseInt(val);
-                        if (amount > 0) {
-                            balance += amount;
-                            updateBalanceUI();
-                            Toast.makeText(this, "✅ Nạp thành công " + amount + "$!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(this, "⚠️ Số tiền phải lớn hơn 0!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-                .setNegativeButton("❌ Hủy", null)
                 .create();
+
+        btnConfirm.setOnClickListener(v -> {
+            String val = etAmount.getText().toString().trim();
+            if (!val.isEmpty()) {
+                int amount = Integer.parseInt(val);
+                if (amount > 0) {
+                    balance += amount;
+                    updateBalanceUI();
+                    Toast.makeText(this, "✅ Nạp thành công " + amount + "$!", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(this, "⚠️ Số tiền phải lớn hơn 0!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "⚠️ Vui lòng nhập số tiền!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+
         dialog.show();
     }
 
@@ -355,45 +363,31 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private void resetRace() {
+        sbHorse2.setProgress(0);
+        sbHorse3.setProgress(0);
+        sbHorse4.setProgress(0);
+        disableActions(false);
+    }
+
     private void disableActions(boolean disable) {
         btnBet.setEnabled(!disable);
         btnStart.setEnabled(!disable);
         btnDeposit.setEnabled(!disable);
     }
 
-    private void resetRace() {
-        if (isRacing) return;
-        sbHorse2.setProgress(0);
-        sbHorse3.setProgress(0);
-        sbHorse4.setProgress(0);
-        toggleHorseGifs(false);
-
-        // Clear và reload lại các GIF để đảm bảo hoạt động cho lần chơi tiếp theo
-        for (int i = 0; i < horseGifs.length; i++) {
-            if (horseGifs[i] != null) {
-                horseGifs[i].setCallback(null);
-                horseGifs[i] = null;
-            }
-        }
-        loadAllHorses();
-
-        disableActions(false);
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (bgMusic != null) {
+            bgMusic.stop();
             bgMusic.release();
-            bgMusic = null;
         }
         if (raceSound != null) {
             raceSound.release();
-            raceSound = null;
         }
-        if(betSound != null){
+        if (betSound != null) {
             betSound.release();
-            betSound = null;
         }
     }
 }
