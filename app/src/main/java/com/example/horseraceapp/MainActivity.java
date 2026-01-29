@@ -132,10 +132,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toggleHorseGifs(boolean start) {
-        for (GifDrawable gif : horseGifs) {
+        for (int i = 0; i < horseGifs.length; i++) {
+            GifDrawable gif = horseGifs[i];
             if (gif != null) {
-                if (start) gif.start();
-                else gif.stop();
+                if (start) {
+                    gif.start();
+                    // Force invalidate để đảm bảo animation chạy
+                    SeekBar sb = i == 0 ? sbHorse2 : (i == 1 ? sbHorse3 : sbHorse4);
+                    sb.postInvalidate();
+                } else {
+                    gif.stop();
+                }
+            }
+        }
+    }
+
+    private void ensureGifCallbacks() {
+        SeekBar[] seekBars = {sbHorse2, sbHorse3, sbHorse4};
+
+        for (int i = 0; i < horseGifs.length; i++) {
+            GifDrawable gif = horseGifs[i];
+            SeekBar seekBar = seekBars[i];
+
+            if (gif != null && seekBar != null) {
+                gif.setCallback(new Drawable.Callback() {
+                    @Override
+                    public void invalidateDrawable(@NonNull Drawable who) {
+                        seekBar.invalidate();
+                    }
+
+                    @Override
+                    public void scheduleDrawable(@NonNull Drawable who, @NonNull Runnable what, long when) {
+                        seekBar.postDelayed(what, when);
+                    }
+
+                    @Override
+                    public void unscheduleDrawable(@NonNull Drawable who, @NonNull Runnable what) {
+                        seekBar.removeCallbacks(what);
+                    }
+                });
             }
         }
     }
@@ -272,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
         isRacing = true;
         disableActions(true);
 
+        ensureGifCallbacks();
         toggleHorseGifs(true);
 
         try {
@@ -367,6 +403,7 @@ public class MainActivity extends AppCompatActivity {
         sbHorse2.setProgress(0);
         sbHorse3.setProgress(0);
         sbHorse4.setProgress(0);
+        loadAllHorses();
         disableActions(false);
     }
 
