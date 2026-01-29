@@ -2,6 +2,7 @@ package com.example.horseraceapp;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
@@ -51,13 +52,26 @@ public class RegisterActivity extends AppCompatActivity {
             String pass = etRegPassword.getText().toString().trim();
             String confirmPass = etRegConfirmPassword.getText().toString().trim();
 
-            if (user.isEmpty() || pass.isEmpty()) {
+            if (user.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
                 Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             } else if (!pass.equals(confirmPass)) {
                 Toast.makeText(this, "Mật khẩu xác nhận không khớp", Toast.LENGTH_SHORT).show();
+            } else if (pass.length() < 3) {
+                Toast.makeText(this, "Mật khẩu phải có ít nhất 3 ký tự", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
-                finish();
+                // Kiểm tra tài khoản đã tồn tại
+                SharedPreferences prefs = getSharedPreferences("UserAccounts", MODE_PRIVATE);
+                if (prefs.contains(user)) {
+                    Toast.makeText(this, "Tên đăng nhập đã tồn tại!", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Lưu tài khoản mới
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString(user, pass);
+                    editor.apply();
+
+                    Toast.makeText(this, "Đăng ký thành công! Hãy đăng nhập.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         });
 

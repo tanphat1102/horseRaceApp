@@ -3,6 +3,7 @@ package com.example.horseraceapp;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
@@ -61,8 +62,20 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+                return;
+            }
+
+            // Kiểm tra tài khoản đã đăng ký
+            SharedPreferences prefs = getSharedPreferences("UserAccounts", MODE_PRIVATE);
+            String savedPassword = prefs.getString(user, null);
+
+            if (savedPassword != null && savedPassword.equals(pass)) {
+                Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             } else {
-                Toast.makeText(this, "Sai tài khoản hoặc mật khẩu (admin/123)!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Sai tài khoản hoặc mật khẩu!", Toast.LENGTH_SHORT).show();
             }
         });
 
