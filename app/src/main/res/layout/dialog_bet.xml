@@ -2,164 +2,163 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_with_image"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:background="@drawable/bg_dialog_with_image">
+    android:padding="20dp">
 
     <!-- Header -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="🎯 ĐẶT CƯỢC"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:textColor="#D4AF37"
         android:gravity="center"
         android:paddingBottom="20dp"
         android:shadowColor="#000000"
         android:shadowDx="2"
         android:shadowDy="2"
-        android:shadowRadius="3" />
+        android:shadowRadius="3"
+        android:text="🎯 ĐẶT CƯỢC"
+        android:textColor="#D4AF37"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <!-- Chọn ngựa section -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="12dp"
         android:text="🐴 Chọn ngựa"
-        android:textStyle="bold"
-        android:textSize="16sp"
         android:textColor="#8B4513"
-        android:paddingBottom="12dp" />
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <RadioGroup
         android:id="@+id/rgHorses"
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/bg_radio_group"
-        android:padding="12dp"
-        android:layout_marginBottom="20dp">
+        android:padding="12dp">
 
         <RadioButton
             android:id="@+id/rbHorse2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ngựa Đen"
-            android:textSize="16sp"
-            android:textColor="#1C1C1C"
-            android:textStyle="bold"
-            android:padding="14dp"
+            android:layout_height="100dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/bg_radio_item"
             android:buttonTint="#1C1C1C"
             android:drawableStart="@drawable/horse_black"
-            android:drawablePadding="12dp"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:padding="14dp"
+            android:text="Ngựa Đen"
+            android:textColor="#1C1C1C"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/rbHorse3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ngựa Nâu"
-            android:textSize="16sp"
-            android:textColor="#8B4513"
-            android:textStyle="bold"
-            android:padding="14dp"
+            android:layout_height="100dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/bg_radio_item"
             android:buttonTint="#8B4513"
             android:drawableStart="@drawable/horse_brown"
             android:drawablePadding="12dp"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:padding="14dp"
+            android:text="Ngựa Nâu"
+            android:textColor="#8B4513"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/rbHorse4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ngựa Trắng"
-            android:textSize="16sp"
-            android:textColor="#4A4A4A"
-            android:textStyle="bold"
-            android:padding="14dp"
+            android:layout_height="100dp"
             android:background="@drawable/bg_radio_item"
             android:buttonTint="#4A4A4A"
             android:drawableStart="@drawable/house_white"
             android:drawablePadding="12dp"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:text="Ngựa Trắng"
+            android:textColor="#4A4A4A"
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </RadioGroup>
 
     <!-- Số tiền cược section -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="12dp"
         android:text="💰 Số tiền cược"
-        android:textStyle="bold"
-        android:textSize="16sp"
         android:textColor="#8B4513"
-        android:paddingBottom="12dp" />
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/etBetAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autofillHints="betAmount"
+        android:background="@drawable/bg_edittext"
         android:hint="Nhập số tiền cược ($)"
-        android:textColorHint="#A0826D"
         android:inputType="number"
         android:maxLines="1"
         android:padding="16dp"
-        android:textSize="16sp"
-        android:textStyle="bold"
         android:textColor="#654321"
-        android:background="@drawable/bg_edittext"
-        android:autofillHints="betAmount" />
+        android:textColorHint="#A0826D"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <!-- Info text -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="✨ Thắng cược x2 tiền đặt!"
-        android:textSize="14sp"
-        android:textColor="#D4AF37"
         android:gravity="center"
         android:paddingTop="16dp"
-        android:textStyle="bold|italic"
         android:shadowColor="#000000"
         android:shadowDx="1"
         android:shadowDy="1"
-        android:shadowRadius="2" />
+        android:shadowRadius="2"
+        android:text="✨ Thắng cược x2 tiền đặt!"
+        android:textColor="#D4AF37"
+        android:textSize="14sp"
+        android:textStyle="bold|italic" />
 
     <!-- Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="24dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnCancelBet"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="❌ Hủy"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/btn_cancel"
             android:layout_marginEnd="8dp"
-            android:padding="12dp" />
+            android:layout_weight="1"
+            android:background="@drawable/btn_cancel"
+            android:padding="12dp"
+            android:text="❌ Hủy"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnConfirmBet"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="🎯 Xác nhận"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/btn_confirm"
             android:layout_marginStart="8dp"
-            android:padding="12dp" />
+            android:layout_weight="1"
+            android:background="@drawable/btn_confirm"
+            android:padding="12dp"
+            android:text="🎯 Xác nhận"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

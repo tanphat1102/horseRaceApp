@@ -16,14 +16,6 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
-        <Button
-            android:id="@+id/btnDeposit"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:backgroundTint="#4CAF50"
-            android:text="Nạp tiền"
-            android:textSize="12sp" />
-
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
@@ -35,23 +27,13 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvBalance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vốn: 100$"
-            android:textColor="#FFEB3B"
-            android:textSize="18sp"
-            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/topBar"
-        android:layout_above="@id/bottomBar"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         android:padding="10dp">
 
         <!-- Ngựa 2: Đen -->
@@ -78,8 +60,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="0dp">
 
             <SeekBar
                 android:id="@+id/sbHorse3"
@@ -120,6 +102,14 @@
         android:padding="15dp"
         android:gravity="center"
         android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vốn: 100$"
+            android:textColor="#FFEB3B"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvBetSummary"
@@ -131,36 +121,58 @@
             android:paddingBottom="10dp"
             android:text="Chưa đặt cược" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
 
-            <Button
-                android:id="@+id/btnBet"
-                android:layout_width="wrap_content"
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="128dp"
                 android:layout_height="wrap_content"
-                android:text="ĐẶT CƯỢC"
-                android:textStyle="bold"
-                android:layout_marginEnd="15dp"
-                android:backgroundTint="#03A9F4" />
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnDeposit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#4CAF50"
+                    android:text="NẠP TIỀN"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnBet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:backgroundTint="#03A9F4"
+                    android:text="ĐẶT CƯỢC"
+
+                    android:textStyle="bold" />
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/btnStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:backgroundTint="#FF9800"
                 android:text="BẮT ĐẦU ĐUA"
-                android:textStyle="bold"
-                android:layout_marginEnd="15dp"
-                android:backgroundTint="#FF9800"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btnReset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="LÀM MỚI"
-                android:backgroundTint="#757575"/>
+                android:backgroundTint="#757575"
+                android:text="LÀM MỚI" />
         </LinearLayout>
+
+
     </LinearLayout>
 </RelativeLayout>

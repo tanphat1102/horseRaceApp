@@ -1,89 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/cardview_shadow_end_color"
+    android:backgroundTint="#87FFFFFF"
+    android:minWidth="500dp"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:background="@drawable/bg_dialog_with_image">
+    android:padding="18dp">
 
     <!-- Header -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="💰 NẠP TIỀN VÀO TÀI KHOẢN"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:textColor="#D4AF37"
         android:gravity="center"
-        android:paddingBottom="16dp"
+        android:paddingBottom="10dp"
         android:shadowColor="#000000"
         android:shadowDx="2"
         android:shadowDy="2"
-        android:shadowRadius="3" />
+        android:shadowRadius="3"
+        android:text="💰 NẠP TIỀN VÀO TÀI KHOẢN"
+        android:textColor="#D4AF37"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-    <!-- Message -->
-
-    <!-- Input Amount -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/bg_text_semitransparent"
-        android:gravity="center"
-        android:padding="12dp"
-        android:text="Nhập số tiền bạn muốn nạp vào tài khoản"
-        android:textColor="#654321"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/etDepositAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="💵 Nhập số tiền nạp ($)"
-        android:textColorHint="#A0826D"
-        android:inputType="number"
-        android:maxLines="1"
-        android:padding="16dp"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="#654321"
-        android:background="@drawable/bg_edittext"
-        android:autofillHints="depositAmount" />
-
-    <!-- Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="24dp"
-        android:gravity="center">
+        android:layout_height="200dp"
+        android:background="@drawable/bg_text_semitransparent"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <!-- Message -->
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCancelDeposit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="❌ Hủy"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/btn_cancel"
-            android:layout_marginEnd="8dp"
-            android:padding="12dp" />
+        <!-- Input Amount -->
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnConfirmDeposit"
-            android:layout_width="0dp"
+
+        <EditText
+            android:id="@+id/etDepositAmount"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="💵 Nạp tiền"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/btn_confirm"
-            android:layout_marginStart="8dp"
-            android:padding="12dp" />
+            android:autofillHints="depositAmount"
+            android:background="@drawable/bg_edittext"
+            android:hint="💵 Nhập số tiền nạp ($)"
+            android:inputType="number"
+            android:maxLines="1"
+            android:padding="12dp"
+            android:textColor="#654321"
+            android:textColorHint="#A0826D"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCancelDeposit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_cancel"
+                android:padding="12dp"
+                android:text="❌ Hủy"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnConfirmDeposit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_confirm"
+                android:padding="12dp"
+                android:text="💵 Nạp tiền"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
+
 
 </LinearLayout>
 
