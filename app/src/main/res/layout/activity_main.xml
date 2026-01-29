@@ -131,10 +131,11 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="128dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingEnd="20dp">
 
                 <Button
                     android:id="@+id/btnDeposit"
@@ -159,18 +160,12 @@
             <Button
                 android:id="@+id/btnStart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_marginEnd="5dp"
                 android:backgroundTint="#FF9800"
                 android:text="BẮT ĐẦU ĐUA"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btnReset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#757575"
-                android:text="LÀM MỚI" />
         </LinearLayout>
 
 
